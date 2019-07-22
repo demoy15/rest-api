@@ -13,7 +13,8 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Autowired
     OrdersRepository ordersRepository;
-    
+
+
 
     @Override
     public Orders getById(Long id) {
@@ -21,8 +22,8 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public void save(Orders orders) {
-       this.ordersRepository.save(orders);
+    public Orders save(Orders orders) {
+       return this.ordersRepository.save(orders);
     }
 
     @Override
@@ -34,4 +35,6 @@ public class OrdersServiceImpl implements OrdersService {
     public List<Orders> getAll() {
         return ordersRepository.findAll();
     }
+
+
 }

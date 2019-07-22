@@ -1,5 +1,6 @@
 package com.demoy.bookstore.service.interfaces;
 
+import com.demoy.bookstore.dto.BooksDTO;
 import com.demoy.bookstore.model.Books;
 
 import java.util.List;
@@ -13,4 +14,7 @@ public interface BooksService {
     void delete(Long id);
 
     List<Books> getAll();
+
+
+
 }

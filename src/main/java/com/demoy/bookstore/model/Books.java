@@ -16,8 +16,10 @@ import java.util.List;
 public class Books extends BaseEntity{
 
 
+
     @Column(name = "title")
     private String title;
+
 
 
     @Column(name = "author")

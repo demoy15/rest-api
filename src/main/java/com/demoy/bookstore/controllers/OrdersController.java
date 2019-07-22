@@ -1,9 +1,13 @@
 package com.demoy.bookstore.controllers;
 
 
+import com.demoy.bookstore.dto.OrdersDTO;
+import com.demoy.bookstore.model.Books;
 import com.demoy.bookstore.model.Orders;
+import com.demoy.bookstore.service.interfaces.BooksService;
 import com.demoy.bookstore.service.interfaces.OrdersService;
 import io.swagger.annotations.ApiOperation;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,7 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/v1/orders/")
@@ -21,38 +27,48 @@ public class OrdersController {
     @Autowired
     private OrdersService ordersService;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
+    private BooksService booksService;
+
 
     @ApiOperation(value = "Get order by id")
     @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Orders> getOrder(@PathVariable(value = "id") Long ordersId){
+    public ResponseEntity<OrdersDTO> getOrder(@PathVariable(value = "id") Long ordersId){
         if(ordersId==null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
+
         Orders orders = this.ordersService.getById(ordersId);
 
-        if(orders==null){
+        OrdersDTO ordersDTO = convertToDto(orders);
+        if(ordersDTO==null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(orders, HttpStatus.OK);
+
+        return new ResponseEntity<>(ordersDTO, HttpStatus.OK);
     }
+
+
 
     @ApiOperation(value = "Order creation")
     @PostMapping(value = "/post", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Orders> saveOrder(@RequestBody Orders order) {
+    public ResponseEntity<OrdersDTO> saveOrder(@RequestBody OrdersDTO order) throws ParseException {
 
         if (order == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        if(order.getBooks().equals(null)){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
 
-        this.ordersService.save(order);
+        Orders orders = convertToEntity(order);
+        Orders ordersCreated = ordersService.save(orders);
+
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(order, headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(convertToDto(ordersCreated), headers, HttpStatus.CREATED);
     }
 
 
@@ -93,5 +109,28 @@ public class OrdersController {
         }
 
         return new ResponseEntity<>(ordersList, HttpStatus.OK);
+    }
+
+
+
+    public OrdersDTO convertToDto(Orders orders) {
+        OrdersDTO ordersDTO = modelMapper.map(orders, OrdersDTO.class);
+
+
+
+        return ordersDTO;
+    }
+
+    public Orders convertToEntity(OrdersDTO ordersDTO) throws ParseException {
+        Orders orders = modelMapper.map(ordersDTO, Orders.class);
+
+        //orders.setBooks(ordersDTO.getBooks(booksService.getById(id)));
+
+        if (ordersDTO.getBooks() != null) {
+            Books oldBook = booksService.getById(orders.getId());
+            orders.setId(oldBook.getId());
+
+        }
+        return orders;
     }
 }

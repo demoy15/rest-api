@@ -8,7 +8,7 @@ public interface OrdersService {
 
     Orders getById(Long id);
 
-    void save(Orders orders);
+    Orders save(Orders orders);
 
     void delete(Long id);
 
