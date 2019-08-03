@@ -1,12 +1,12 @@
-INSERT INTO users VALUES(1,'Пабло', 'Эскобар');
-INSERT INTO users VALUES(2,'Хавьер', 'Пенья');
-INSERT INTO users VALUES(3,'Стив', 'Мёрфи');
-INSERT INTO users VALUES(4,'Эдуардо', 'Сандоваль');
+INSERT INTO "person" VALUES(1,'Пабло', 'Эскобар');
+INSERT INTO "person" VALUES(2,'Хавьер', 'Пенья');
+INSERT INTO "person" VALUES(3,'Стив', 'Мёрфи');
+INSERT INTO "person" VALUES(4,'Эдуардо', 'Сандоваль');
 
 
-INSERT INTO books VALUES(1,'Бойцовский клуб', 'Чак Паланик');
-INSERT INTO books VALUES(2,'Цветы для Элджернона', 'Дэниель Киз');
-INSERT INTO books VALUES(3,'Чапаев и Пустота', 'Виктор Пелевин');
-INSERT INTO books VALUES(4,'Черновик', 'Сергей Лукьяненко');
+INSERT INTO "book" VALUES(1, 'Чак Паланик', 200,'Бойцовский клуб');
+INSERT INTO "book" VALUES(2, 'Дэниель Киз', 300,'Цветы для Элджернона');
+INSERT INTO "book" VALUES(3, 'Виктор Пелевин',150,'Чапаев и Пустота');
+INSERT INTO "book" VALUES(4, 'Сергей Лукьяненко',300,'Черновик');
 
 

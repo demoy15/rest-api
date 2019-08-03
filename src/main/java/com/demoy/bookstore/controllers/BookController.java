@@ -1,8 +1,8 @@
 package com.demoy.bookstore.controllers;
 
 
-import com.demoy.bookstore.model.Books;
-import com.demoy.bookstore.service.interfaces.BooksService;
+import com.demoy.bookstore.model.Book;
+import com.demoy.bookstore.service.interfaces.BookService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -15,78 +15,90 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/books/")
-public class BooksController {
+@RequestMapping("api/v1/book/")
+public class BookController {
 
     @Autowired
-    BooksService booksService;
+    BookService bookService;
 
-    @ApiOperation(value = "Get book by id")
-   @GetMapping(value = "{id}",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Books> getBook(@PathVariable(value = "id") Long bookId){
+    /** Gets object "Book" by id */
+    @ApiOperation(value = "Gets book by id")
+    @GetMapping(value = "{id}",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Book> getBook(@PathVariable(value = "id") Long bookId){
+
         if(bookId==null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        Books books = this.booksService.getById(bookId);
+        Book book = bookService.getById(bookId);
 
-        if(books==null){
+        if(book ==null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(books,HttpStatus.OK);
+
+        return new ResponseEntity<>(book,HttpStatus.OK);
 
     }
 
+    /** Creation object "Book" */
     @ApiOperation(value = "Book creation")
     @PostMapping(value = "/post", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Books> saveBook(@RequestBody @Valid Books book){
+    public ResponseEntity<Book> saveBook(@RequestBody @Valid Book book){
+
         HttpHeaders headers = new HttpHeaders();
 
         if(book==null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        this.booksService.save(book);
+
+        this.bookService.save(book);
 
         return new ResponseEntity<>(book,headers,HttpStatus.CREATED);
     }
 
+    /** Change object "Book" */
     @ApiOperation(value = "Change book")
     @PatchMapping(value = "",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Books> updateBook(@RequestBody @Valid Books book){
+    public ResponseEntity<Book> updateBook(@RequestBody @Valid Book book){
+
         HttpHeaders httpHeaders = new HttpHeaders();
 
         if(book==null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        this.booksService.save(book);
+        this.bookService.save(book);
 
         return new ResponseEntity<>(book,httpHeaders,HttpStatus.OK);
     }
 
+    /** Delete object "Book" by id */
     @ApiOperation(value = "Delete book by id")
     @DeleteMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Books> deleteBook(@PathVariable(value = "id") Long id){
-        Books book = this.booksService.getById(id);
+    public ResponseEntity<Book> deleteBook(@PathVariable(value = "id") Long id){
+
+        Book book = this.bookService.getById(id);
 
         if(book==null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        this.booksService.delete(id);
+        this.bookService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    /** Gets all objects "Book" */
     @ApiOperation(value = "Get all books")
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<Books>> getAllBooks() {
-        List<Books> booksList = this.booksService.getAll();
-        if (booksList.isEmpty()) {
+    public ResponseEntity<List<Book>> getAllBooks() {
+
+        List<Book> bookList = this.bookService.getAll();
+
+        if (bookList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(booksList, HttpStatus.OK);
+        return new ResponseEntity<>(bookList, HttpStatus.OK);
     }
-
 
 }
