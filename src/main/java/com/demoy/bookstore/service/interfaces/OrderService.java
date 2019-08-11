@@ -17,5 +17,4 @@ public interface OrderService {
     List<Order> getAll();
 
     Long sumPriceBook(List<Book> bookList);
-
 }

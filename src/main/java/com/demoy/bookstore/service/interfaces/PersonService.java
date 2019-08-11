@@ -16,5 +16,4 @@ public interface PersonService {
     List<Person> getAll();
 
     List<Order> getAllByPersonId(Long id);
-
 }

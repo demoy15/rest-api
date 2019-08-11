@@ -18,7 +18,7 @@ public class Person implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_id")
-    @SequenceGenerator(name = "person_id", sequenceName = "seq_pers", allocationSize = 1,initialValue = 5)
+    @SequenceGenerator(name = "person_id", sequenceName = "seq_pers", allocationSize = 1, initialValue = 5)
     private Long id;
 
     @Column(name = "name")
@@ -26,5 +26,4 @@ public class Person implements Serializable {
 
     @Column(name = "last_name")
     private String lastName;
-
 }

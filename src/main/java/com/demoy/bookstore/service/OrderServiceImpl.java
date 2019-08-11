@@ -20,37 +20,47 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     OrderMapper orderMapper;
 
-    /** Gets object "Order" by id */
+    /**
+     * Gets object "Order" by id
+     */
     @Override
     public Order getById(Long id) {
         return orderRepository.getOne(id);
     }
 
-    /** Save object "Order" */
+    /**
+     * Save object "Order"
+     */
     @Override
     public Order save(OrderDTO order) {
-       Order order1 = orderMapper.toOrder(order);
-       return orderRepository.save(order1);
-   }
+        Order order1 = orderMapper.toOrder(order);
+        return orderRepository.save(order1);
+    }
 
-    /** Delete object "Order" by id */
+    /**
+     * Delete object "Order" by id
+     */
     @Override
     public void delete(Long id) {
         orderRepository.deleteById(id);
     }
 
-    /** Gets all objects "Order" */
+    /**
+     * Gets all objects "Order"
+     */
     @Override
     public List<Order> getAll() {
         return orderRepository.findAll();
     }
 
-    /** Summing the prices of all books in the order */
-    public Long sumPriceBook(List<Book> bookList){
-       Long result=0L;
-       for(Book a:bookList){
-          result+=a.getPrice();
-       }
-       return result;
+    /**
+     * Summing the prices of all books in the order
+     */
+    public Long sumPriceBook(List<Book> bookList) {
+        Long result = 0L;
+        for (Book a : bookList) {
+            result += a.getPrice();
+        }
+        return result;
     }
 }

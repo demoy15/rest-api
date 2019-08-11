@@ -23,6 +23,5 @@ public class OrderDTO extends OrderMapperImpl {
     private Long personId;
 
     private List<BookDTO> books;
-
 }
 

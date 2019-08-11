@@ -14,17 +14,20 @@ public interface OrderMapper {
 
     OrderMapper ORDER_MAPPER = Mappers.getMapper(OrderMapper.class);
 
-    /** Conversion object "OrderDTO" to "Order"*/
+    /**
+     * Conversion object "OrderDTO" to "Order"
+     */
     @Mappings({
-            @Mapping(target = "id",source = "order.id"),
+            @Mapping(target = "id", source = "order.id"),
             @Mapping(target = "personId", source = "order.personId"),
-            @Mapping(target = "orderStatus",source = "order.orderStatus"),
-            @Mapping(target = "books",source = "order.books")
+            @Mapping(target = "orderStatus", source = "order.orderStatus"),
+            @Mapping(target = "books", source = "order.books")
     })
     Order toOrder(OrderDTO order);
 
-    /** Conversion object "Order" to "OrderDTO"*/
+    /**
+     * Conversion object "Order" to "OrderDTO"
+     */
     @InheritInverseConfiguration
     OrderDTO toDto(Order order);
-
 }

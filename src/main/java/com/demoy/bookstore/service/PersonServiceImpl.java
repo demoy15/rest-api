@@ -20,31 +20,41 @@ public class PersonServiceImpl implements PersonService {
     @Autowired
     OrderRepository orderRepository;
 
-    /** Gets object "Person" by id */
+    /**
+     * Gets object "Person" by id
+     */
     @Override
     public Person getById(Long id) {
         return this.personRepository.getOne(id);
     }
 
-    /** Save object "Person" */
+    /**
+     * Save object "Person"
+     */
     @Override
     public void save(Person person) {
-       this.personRepository.save(person);
+        this.personRepository.save(person);
     }
 
-    /** Delete object "Person" by id */
+    /**
+     * Delete object "Person" by id
+     */
     @Override
     public void delete(Long id) {
         personRepository.deleteById(id);
     }
 
-    /** Gets all objects "Person" */
+    /**
+     * Gets all objects "Person"
+     */
     @Override
     public List<Person> getAll() {
         return personRepository.findAll();
     }
 
-    /** Gets all objects "Order" by "Person's" id*/
+    /**
+     * Gets all objects "Order" by "Person's" id
+     */
     @Override
     public List<Order> getAllByPersonId(Long id) {
         return orderRepository.findAllByPersonId(id);

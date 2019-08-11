@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="book")
+@Table(name = "book")
 public class Book implements Serializable {
 
     @Id
@@ -36,5 +36,4 @@ public class Book implements Serializable {
     @JsonIgnore
     @ManyToMany(mappedBy = "books")
     private List<Order> orders;
-
 }

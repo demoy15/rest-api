@@ -15,28 +15,35 @@ public class BookServiceImpl implements BookService {
     @Autowired
     BookRepository bookRepository;
 
-    /** Gets object "Book" by id */
+    /**
+     * Gets object "Book" by id
+     */
     @Override
     public Book getById(Long id) {
         return bookRepository.getOne(id);
     }
 
-    /** Save object "Book" */
+    /**
+     * Save object "Book"
+     */
     @Override
     public void save(Book book) {
         this.bookRepository.save(book);
     }
 
-    /** Delete object "Book" by id */
+    /**
+     * Delete object "Book" by id
+     */
     @Override
     public void delete(Long id) {
         bookRepository.deleteById(id);
     }
 
-    /** Gets all objects "Book" */
+    /**
+     * Gets all objects "Book"
+     */
     @Override
     public List<Book> getAll() {
         return bookRepository.findAll();
     }
-
 }

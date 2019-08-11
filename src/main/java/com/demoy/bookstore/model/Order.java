@@ -32,8 +32,7 @@ public class Order implements Serializable {
 
     @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JoinTable(name = "order_book",
-    joinColumns = @JoinColumn(name = "orders_id"),
-    inverseJoinColumns = @JoinColumn(name = "books_id"))
-    private List<Book> books =new ArrayList<>();
-
+            joinColumns = @JoinColumn(name = "orders_id"),
+            inverseJoinColumns = @JoinColumn(name = "books_id"))
+    private List<Book> books = new ArrayList<>();
 }

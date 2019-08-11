@@ -13,5 +13,4 @@ import java.io.Serializable;
 public class BookDTO implements Serializable {
 
     private Long id;
-
 }
