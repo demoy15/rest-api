@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+<changeSet id="1" author="demoy">
+    <createTable tableName="book">
+        <column name="id" type="bigint" autoIncrement="true">
+            <constraints primaryKey="true" nullable="false"/>
+        </column>
+        <column name="title" type="character varying"/>
+        <column name="author" type="character varying"/>
+        <column name="price" type="bigint"/>
+    </createTable>
+
+    <createTable tableName="person">
+        <column name="id" type="bigint" autoIncrement="true">
+            <constraints primaryKey="true" nullable="false"/>
+        </column>
+        <column name="name" type="character varying"/>
+        <column name="last_name" type="character varying"/>
+    </createTable>
+
+    <createTable tableName="orders">
+        <column name="id" type="bigint" autoIncrement="true">
+            <constraints primaryKey="true" nullable="false"/>
+        </column>
+        <column name="person_id" type="bigint">
+            <constraints foreignKeyName="fk_person" referencedColumnNames="id" referencedTableName="person"/>
+        </column>
+        <column name="status" type="character"/>
+    </createTable>
+
+    <createTable tableName="order_book">
+        <column name="orders_id" type="bigint" autoIncrement="true">
+            <constraints foreignKeyName="fk_orders" referencedTableName="orders" referencedColumnNames="id"/>
+        </column>
+        <column name="books_id" type="bigint" autoIncrement="true">
+            <constraints foreignKeyName="fk_book" referencedTableName="book" referencedColumnNames="id"/>
+        </column>
+        <column name="last_name" type="character varying"/>
+    </createTable>
+</changeSet>
+</databaseChangeLog>
